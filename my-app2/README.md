@@ -27,4 +27,9 @@ npm i react-router-dom
 ## 5.表单验证  
 声明式验证： 直接使用别人定义好的规则进行验证。表单校验规则：https://ant.design/components/form-cn/#Rule  
 自定义验证： validator自定义校验，接收 Promise 作为返回值。(rule, value) => Promise
+## 6.动态显示导航栏  
+1. 使用map()和递归调用
+2. 使用reduce()和递归调用  
+递归调用：在函数内部，可以调用其他函数。如果一个函数在内部调用自身本身，这个函数就是递归函数。https://segmentfault.com/a/1190000015813977?utm_source=tag-newest  
+reduce()：reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。https://www.jianshu.com/p/e375ba1cfc47
 
