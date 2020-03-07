@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { Menu } from 'antd';
 
 
@@ -11,15 +11,8 @@ const { SubMenu } = Menu;
 
 
 //左侧导航组件
-export default class LeftNav extends Component {
-    state = {
-        collapsed: false,
-      };
-    toggleCollapsed = () => {
-        this.setState({
-          collapsed: !this.state.collapsed,
-        });
-      };
+class LeftNav extends Component {
+    
     /*根据menu的数据数组生成对应的标签数组
       使用map() + 递归调用
     */
@@ -70,6 +63,13 @@ export default class LeftNav extends Component {
                     </Menu.Item>
                 )
             }else{
+                const path = this.props.location.pathname
+                //查找与当前请求路径匹配的子item
+                const cItem = item.children.find( cItem => cItem.key === path)
+                //如果存在则说明当前item所对应的子列表需要展开
+                if(cItem){
+                    this.openKey = item.key
+                }
                 pre.push(
                     <SubMenu
                         key={item.key}
@@ -88,7 +88,16 @@ export default class LeftNav extends Component {
         },[])
     }
 
+    //在第一次render之前执行一次，为第一次render准备数据（同步的）
+    componentWillMount(){
+        this.menuNodes = this.getMenuNodes(menuConfig)
+        console.log('要替换componentWillMount！！！！！！！！！！！')
+    }
+
     render() {
+        //得到当前请求的路由路径
+        const path = this.props.location.pathname
+        const openKey = this.openKey
         return (
             <div>
                 <div className='left-nav'>
@@ -98,14 +107,13 @@ export default class LeftNav extends Component {
                     </Link>
                 </div>
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
+                    selectedKeys={[path]} //selectedKeys当前选中的菜单项 key 数组;defaultSelectedKeys初始选中的菜单项 key 数组
+                    defaultOpenKeys={[openKey]}
                     mode="inline"
                     theme="dark"
-                    inlineCollapsed={this.state.collapsed}
                     >
 
-                    {this.getMenuNodes(menuConfig)}
+                    {this.menuNodes}
 
                     {/* <Menu.Item key="1">
                         <Link to='/home'>
@@ -142,3 +150,5 @@ export default class LeftNav extends Component {
         )
     }
 }
+
+export default withRouter(LeftNav)
