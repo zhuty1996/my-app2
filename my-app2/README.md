@@ -41,4 +41,7 @@ reduce()：reduce() 方法接收一个函数作为累加器，数组中的每个
 export：import命令接受一对大括号，里面指定要从其他模块导入的变量名。大括号里面的变量名，必须与被导入模块（profile.js）对外接口的名称相同。  
 如果想为输入的变量重新取一个名字，import命令要使用as关键字，将输入的变量重命名。  
 详情： https://www.cnblogs.com/fanyanzhao/p/10298543.html
-
+## 9.var、const和let  
+let 声明的变量只在 let 命令所在的代码块内有效。  
+const 声明一个只读的常量，一旦声明，常量的值就不能改变。  
+https://www.runoob.com/js/js-let-const.html
