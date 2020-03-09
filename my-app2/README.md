@@ -37,4 +37,8 @@ reduce()：reduce() 方法接收一个函数作为累加器，数组中的每个
 1. history: push()/replace()/back()
 2. location: pathname属性
 3. match: params属性
+## 8.export和export default
+export：import命令接受一对大括号，里面指定要从其他模块导入的变量名。大括号里面的变量名，必须与被导入模块（profile.js）对外接口的名称相同。  
+如果想为输入的变量重新取一个名字，import命令要使用as关键字，将输入的变量重命名。  
+详情： https://www.cnblogs.com/fanyanzhao/p/10298543.html
 
