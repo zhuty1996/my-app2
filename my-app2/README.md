@@ -65,3 +65,12 @@ let b = arr.map((item) => { return item+5;});
 console.log(b);   // [8, 10, 7, 7, 10, 10]
 console.log(arr);  // [3, 5, 2, 2, 5, 5]
 ```
+## 11.React-Router
+```
+<Switch>
+    <Route path='/product' exact component={Home} />  //exact：精确匹配
+    <Route path='/product/detail' component={Detail}/>
+    <Route path='/product/addupdate' component={AddUpdate}/>
+    <Redirect to='/product'/> //Redirect：重定向，如果上面的路由都不匹配时，跳转到'/product'页面。必须放在Switch里面的最后一行
+</Switch>
+```
