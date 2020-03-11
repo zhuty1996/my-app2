@@ -12,6 +12,10 @@ const { SubMenu } = Menu;
 
 //左侧导航组件
 class LeftNav extends Component {
+    constructor(props){
+        super(props)
+        this.menuNodes = this.getMenuNodes(menuConfig)
+    }
     
     /*根据menu的数据数组生成对应的标签数组
       使用map() + 递归调用
@@ -89,10 +93,10 @@ class LeftNav extends Component {
     }
 
     //在第一次render之前执行一次，为第一次render准备数据（同步的）
-    componentWillMount(){
-        this.menuNodes = this.getMenuNodes(menuConfig)
-        console.log('要替换componentWillMount！！！！！！！！！！！')
-    }
+    // componentWillMount(){
+    //     this.menuNodes = this.getMenuNodes(menuConfig)
+    //     console.log('要替换componentWillMount！！！！！！！！！！！')
+    // }
 
     render() {
         //得到当前请求的路由路径

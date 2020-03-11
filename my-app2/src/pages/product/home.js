@@ -96,7 +96,8 @@ export default class Home extends Component {
         </Button>)
         return (
             <Card title={title} extra={extra}>
-                <Table dataSource={products} columns={this.columns} rowKey='id' bordered/>
+                <Table dataSource={products} columns={this.columns} rowKey='id' bordered />
+                {/* pagination={{onChange: (pageNum) => {this.getProduct(pageNum)}}} 翻页发送请求，this.getProduct()是请求接口数据的函数 */}
             </Card>
         )
     }

@@ -6,14 +6,19 @@ import {Form, Input} from 'antd'
 const Item = Form.Item
 
 class UpdateForm extends Component {
+    constructor(props){
+        super(props)
+        this.props.setForm(this.props.form)
+
+    }
     static propTypes = {
         categoryName : PropTypes.string.isRequired,
         setForm : PropTypes.func.isRequired
     }
-    componentWillMount(){
-        //将form对象通过setForm()方法传递给父组件
-        this.props.setForm(this.props.form)
-    }
+    // componentWillMount(){
+    //     //将form对象通过setForm()方法传递给父组件
+    //     this.props.setForm(this.props.form)
+    // }
     
     render() {
         return (
