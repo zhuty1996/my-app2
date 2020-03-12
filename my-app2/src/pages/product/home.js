@@ -34,7 +34,9 @@ export default class Home extends Component {
                 '__v' : '0'
             },
         ], //商品的数组
-        
+        searchType: 'productName', //搜索类型
+        searchName: '', //输入的搜索
+
     }
     //初始化table的列的数组
     initColumns = () => {
@@ -79,16 +81,43 @@ export default class Home extends Component {
             }
           ]
     }
+
+        //发送数据接口请求
+    // getProduct = async(pageNum) => {
+    //     this.setState({loading: true}) //显示loading
+    //     const {searchName, searchType} = this.state
+    //     //如果搜索关键字有值，说明要进行搜索分页，否则为一般分页
+    //     let result //结果统一处理
+    //     if(searchName){
+    //         result = await reqSearchProducts({pageNum, pageSize: 3, searchName, searchType})
+    //     }else{
+    //         result = await reqProducts(pageNum, 3)
+    //     }
+    //     this.setState({loading: false}) //隐藏loading
+    //     if(result.status === 0){
+    //         //取出分页数据，更新状态，显示分页列表
+    //         this.setState({
+    //             total,
+    //             products: result.data.list,
+    //         })
+    //     }
+    // }
+
     render() {
-        const {products} = this.state
+        const {products, searchType, searchName} = this.state
+        console.log('searchType',searchType)
+        console.log('searchName', searchName)
         const title = (
         <div>
-            <Select value='1'>
-                <Option value='1'>按名称搜索</Option>
-                <Option value='2'>按描述搜索</Option>
+        {/* 获取搜索类型的值 */}
+            <Select value={searchType} onChange={value => this.setState({searchType: value})}>
+                <Option value='productName'>按名称搜索</Option>
+                <Option value='productDesc'>按描述搜索</Option>
             </Select>
-            <Input placeholder='输入关键字搜索' style={{width : 150, margin: '0 15px'}}/>
-            <Button type='primary'>搜索</Button>
+            {/* 获取输入的搜索条件的值 */}
+            <Input placeholder='输入关键字搜索' style={{width : 150, margin: '0 15px'}} value={searchName} onChange={e => this.setState({searchName: e.target.value})} />
+            {/* onClick={ () => {this.getProduct(1)}} 搜索事件，this.getProduct()是请求接口数据的函数，1是当前页数*/}
+            <Button type='primary' >搜索</Button>
         </div>)
         const extra = (
         <Button type='primary'>
