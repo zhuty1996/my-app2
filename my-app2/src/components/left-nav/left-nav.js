@@ -67,7 +67,11 @@ class LeftNav extends Component {
                     </Menu.Item>
                 )
             }else{
-                const path = this.props.location.pathname
+                let path = this.props.location.pathname
+                //当前请求的是商品或商品子路由,则让路径变为path，来让子列表展开
+                if(path.indexOf('/product') === 0){
+                    path = '/product'
+                }
                 //查找与当前请求路径匹配的子item
                 const cItem = item.children.find( cItem => cItem.key === path)
                 //如果存在则说明当前item所对应的子列表需要展开
@@ -100,7 +104,11 @@ class LeftNav extends Component {
 
     render() {
         //得到当前请求的路由路径
-        const path = this.props.location.pathname
+        let path = this.props.location.pathname
+        //当前请求的是商品或商品子路由，则让路径变为path，来让子列表展开
+        if(path.indexOf('/product') === 0){
+            path = '/product'
+        }
         const openKey = this.openKey
         return (
             <div>
