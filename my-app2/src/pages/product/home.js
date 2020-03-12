@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card, Select, Input, Table, Button } from 'antd'
+import {Card, Select, Input, Table, Button, message } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import LinkButton from '../../components/link-button/link-button'
@@ -21,7 +21,8 @@ export default class Home extends Component {
                 'price' : '6000',
                 'pCategoryId' : '34354543454',
                 'categoryId' : '5453454443',
-                '__v' : '0'
+                '__v' : '0',
+                'detail' : '<h3>shdkjshadhksjahdkjs</h3>'
             },
             {
                 'status' : '0',
@@ -31,13 +32,29 @@ export default class Home extends Component {
                 'price' : '6799',
                 'pCategoryId' : '213454534',
                 'categoryId' : '2132135454',
-                '__v' : '0'
+                '__v' : '0',
+                'detail' : '<h3>dsjadlajsldkjsa</h3>'
             },
         ], //商品的数组
         searchType: 'productName', //搜索类型
         searchName: '', //输入的搜索
 
     }
+
+    updateStatus= (status) => {
+        if( status === '1'){
+            message.success('更新商品成功')
+            this.setState({
+                status: '0'
+            })
+        }else {
+            message.success('更新商品成功')
+            this.setState({
+                status: '1'
+            })
+        }
+    }
+
     //初始化table的列的数组
     initColumns = () => {
         this.columns =[
@@ -59,9 +76,14 @@ export default class Home extends Component {
                 width: '100px', //指定宽度
                 dataIndex: 'status',
                 render: (status) => {
+                    console.log('status',status)
                     return(
                         <div>
-                            <Button type='primary'>{status === '1' ? '上架' : '下架'}</Button>
+                            <Button 
+                            type='primary'
+                            onClick={ () => {this.updateStatus(status)}}
+                            >
+                            {status === '1' ? '上架' : '下架'}</Button>
                             <p>{status === '1' ? '已下架' : '在售'}</p>
                         </div>
                     )
@@ -73,7 +95,8 @@ export default class Home extends Component {
                 render: (product) => {
                     return(
                     <div>
-                        <LinkButton>详情</LinkButton>
+                    {/* 将product对象使用state传递给目标路由组件 */}
+                        <LinkButton onClick={ () => this.props.history.push('/product/detail', product)}>详情</LinkButton>
                         <LinkButton>修改</LinkButton>
                     </div>
                     )
