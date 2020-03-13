@@ -3,10 +3,26 @@ import {Card, List, Form, Input, Cascader, Upload, Button} from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import LinkButton from '../../components/link-button/link-button'
-import { number } from 'prop-types';
 const { TextArea } = Input;
+
+//Cascader级联选择器的数据
+const options = [
+    {
+      value: 'computer',
+      label: '电脑',
+      isLeaf: false, //false：代表有下一级
+    },
+    {
+      value: 'phone',
+      label: '手机',
+      isLeaf: false,
+    },
+  ];
 //添加和更新的子路由
 export default class AddUpdate extends Component {
+    state = { 
+        options,
+    }
     onFinish = values => {
         console.log('Success:', values);
     };
@@ -18,15 +34,46 @@ export default class AddUpdate extends Component {
         if(value*1 > 0){
             return Promise.resolve()
         }else{
-            return Promise.reject('价格必须大于0！');
+            return Promise.reject('价格必须大于0！')
         }
+    }
+    //Cascater监听
+    onChange = (value, selectedOptions) => {
+        console.log(value, selectedOptions)
+    };
+    //Cascater动态加载选项
+    loadData = selectedOptions => {
+        const targetOption = selectedOptions[selectedOptions.length - 1]; //selectedOptions[0]
+        //显示loading
+        targetOption.loading = true
+
+        // load options lazily
+        setTimeout(() => {
+            targetOption.loading = false
+            targetOption.children = [
+                {
+                    label: `${targetOption.label} Dynamic 1`,
+                    value: 'dynamic1',
+                    isLeaf: true,
+                },
+                {
+                    label: `${targetOption.label} Dynamic 2`,
+                    value: 'dynamic2',
+                    isLeaf: true,
+                },
+            ]
+            //更新状态 模拟请求异步获取数据并更新
+            this.setState({
+                options: [...this.state.options],
+            });
+        }, 1000)
     }
     render() {
         //指定Item布局的配置对象
         const layout = {
             labelCol: { span: 2 }, //左侧label的宽度
             wrapperCol: { span: 8 }, //右侧输入框的宽度
-          }
+        }
         const title = (
             <span>
                 <LinkButton><ArrowLeftOutlined style={{fontSize: 20}} onClick={ () => this.props.history.goBack()} /></LinkButton>
@@ -56,7 +103,7 @@ export default class AddUpdate extends Component {
                                     message: '请输入商品描述!',
                         }]}
                     >
-                        <TextArea placeholder="请输入商品描述" autoSize={{ minRows: 2, maxRows: 6 }} />
+                        <TextArea placeholder="请输入商品描述" />
                     </Form.Item>
                     <Form.Item 
                         label='商品价格:'
@@ -75,11 +122,23 @@ export default class AddUpdate extends Component {
                         >
                         <Input type='number' addonAfter='元' />
                     </Form.Item>
-                    <Form.Item label='商品分类:'>
-                        <Input placeholder="商品分类" />
+                    <Form.Item 
+                        label='商品分类:'
+                        name='productOptions'
+                        rules={[{
+                            required: true,
+                            message: '请指定商品分类!',
+                        }]}
+                        >
+                        <Cascader 
+                            options={this.state.options} 
+                            loadData={this.loadData} 
+                            onChange={this.onChange}
+                            changeOnSelect //当此项为 true 时，点选每级菜单选项值都会发生变化
+                            placeholder="请选择商品分类" />
                     </Form.Item>
                     <Form.Item label='商品详情:'>
-                        <Input placeholder="商品详情" />
+                        <Input placeholder="请选择商品详情" />
                     </Form.Item>
                     <Form.Item>
                         <Button type='primary' htmlType='submit'>提交</Button>
