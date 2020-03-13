@@ -26,7 +26,7 @@ npm i react-router-dom
     4). 高阶组件也是一个高阶函数：接收一个组件函数，返回是一个新的组件函数  
 ## 5.表单验证  
 声明式验证： 直接使用别人定义好的规则进行验证。表单校验规则：https://ant.design/components/form-cn/#Rule  
-自定义验证： validator自定义校验，接收 Promise 作为返回值。(rule, value) => Promise
+自定义验证： validator自定义校验，接收 Promise 作为返回值。(rule, value) => Promise **v3版本：**:function(rule, value, callback)
 ## 6.动态显示导航栏  
 1. 使用map()和递归调用
 2. 使用reduce()和递归调用  

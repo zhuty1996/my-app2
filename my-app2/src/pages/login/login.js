@@ -24,10 +24,7 @@ export default class Login extends Component {
                     <Form
                         name="normal_login"
                         className="login-form"
-                        onFinish={onFinish}
-                        initialValues={{
-                            remember: true,
-                        }}>
+                        onFinish={onFinish}>
                         {/* 声明式校验 */}
                         <Form.Item
                             name="username"
