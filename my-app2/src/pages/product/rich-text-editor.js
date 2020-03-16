@@ -6,7 +6,6 @@ import htmlToDraft from 'html-to-draftjs' //html转换成文字
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import PropTypes from 'prop-types'
 
-
 export default class EditorConvertToHTML extends Component {
 		constructor(props){
 			super(props)
@@ -39,6 +38,28 @@ export default class EditorConvertToHTML extends Component {
 			//返回输入数据对应的html格式的文本
 			return draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
 		}
+		
+		//
+		uploadImageCallBack = (file) => {
+			return new Promise(
+				(resolve,reject) => {
+					const xhr = new XMLHttpRequest()
+					xhr.open('POST', 'https://api.imgur.com/3/image')
+					xhr.setRequestHeader('Authorization', 'Client-ID XXXXX')
+					const data = new FormData()
+					data.append('image', file)
+					xhr.send(data)
+					xhr.addEventListener('load', () => {
+						const response = JSON.parse(xhr.responseText)
+						resolve({data: {link: response.data.url}})
+					})
+					xhr.addEventListener('error', () => {
+						const error = JSON.parse(xhr.responseText)
+						reject(error)
+					})
+				}
+			)
+		}
   
     render() {
       const { editorState } = this.state;
@@ -48,6 +69,9 @@ export default class EditorConvertToHTML extends Component {
 								editorState={editorState}
 								editorStyle={{border: '1px solid black', minHeight: 200, paddingLeft: 10}}
 								onEditorStateChange={this.onEditorStateChange}
+								toolbar={{
+									image: { uploadCallback: this.uploadImageCallBack, alt: {present: true,mandatory: true}}
+								}}
 							/>
 							{/* <textarea
 								disabled
