@@ -92,3 +92,6 @@ indexOf() 方法可返回某个指定的字符串值在字符串中首次出现�
 **item**: 必须。查找的元素。  
 **start**: 可选的整数参数。规定在字符串中开始检索的位置。它的合法取值是 0 到 stringObject.length - 1。如省略该参数，则将从字符串的首字符开始检索。  
 返回值:元素在数组中的位置,如果没与搜索到则返回 -1
+## 15.父组件调用子组件中的方法
+在父组件中通过ref得到子组件标签对象（也就是组件对象），调用其方法  
+https://react-1251415695.cos-website.ap-chengdu.myqcloud.com/docs/refs-and-the-dom.html

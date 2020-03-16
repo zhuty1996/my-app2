@@ -9,6 +9,13 @@ const { TextArea } = Input;
 
 //添加和更新的子路由
 export default class AddUpdate extends Component {
+    //获取子组件的方法
+    constructor(props){
+        super(props)
+
+        //创建用来保存ref标识的标签对象的容器
+        this.rw = React.createRef()
+    }
     state = { 
         //Cascader级联选择器的数据
         options : [
@@ -26,6 +33,8 @@ export default class AddUpdate extends Component {
     }
     onFinish = values => {
         console.log('Success:', values);
+        const imgs = this.rw.current.getImgs()
+        console.log('imgs',imgs)
     };
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -161,7 +170,8 @@ export default class AddUpdate extends Component {
                             />
                     </Form.Item>
                     <Form.Item label='商品图片:'>
-                        <PicturesWall/>
+                    {/* 获取子组件的方法 */}
+                        <PicturesWall ref={this.rw} />
                     </Form.Item>
                     <Form.Item label='商品详情:'>
                         <Input placeholder="请输入商品详情" />

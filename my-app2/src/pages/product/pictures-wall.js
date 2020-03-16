@@ -69,6 +69,11 @@ export default class PicturesWall extends Component {
         console.log('file',file)
         this.setState({ fileList })
     }
+
+    //获取所有已上传图片的文件名的数组
+    getImgs = () => {
+        return this.state.fileList.map(file => file.name)
+    }
     
 
     render() {
