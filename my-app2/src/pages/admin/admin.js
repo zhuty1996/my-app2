@@ -20,7 +20,7 @@ const { Content, Footer, Sider } = Layout;
 export default class Admin extends Component {
     render() {
         return (
-            <Layout style={{height : '100%'}}>
+            <Layout style={{minHeight : '100%'}}>
                 <Sider >
                     <LeftNav/>
                 </Sider>

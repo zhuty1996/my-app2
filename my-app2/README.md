@@ -94,4 +94,13 @@ indexOf() 方法可返回某个指定的字符串值在字符串中首次出现�
 返回值:元素在数组中的位置,如果没与搜索到则返回 -1
 ## 15.父组件调用子组件中的方法
 在父组件中通过ref得到子组件标签对象（也就是组件对象），调用其方法  
+1. 创建ref容器： this.myRef=React.createRef()
+2. 将ref容器交给需要获取的标签元素： <PicturesWall ref={this.myRef} />
+3. 通过ref容器读取标签元素： this.myRef.current  
 https://react-1251415695.cos-website.ap-chengdu.myqcloud.com/docs/refs-and-the-dom.html
+## 16.react-draft-wysiwyg富文本编辑器
+npm install -S react-draft-wysiwyg  
+npm install draft-js  
+npm install draftjs-to-html  
+npm install html-to-draftjs --save
+https://www.jianshu.com/p/c6f3a4e5d324

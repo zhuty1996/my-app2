@@ -4,6 +4,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import LinkButton from '../../components/link-button/link-button'
 import PicturesWall from './pictures-wall'
+import RichTextEditor from './rich-text-editor'
 const { TextArea } = Input;
 
 
@@ -15,6 +16,7 @@ export default class AddUpdate extends Component {
 
         //创建用来保存ref标识的标签对象的容器
         this.rw = React.createRef()
+        this.rhEditor = React.createRef()
     }
     state = { 
         //Cascader级联选择器的数据
@@ -35,6 +37,8 @@ export default class AddUpdate extends Component {
         console.log('Success:', values);
         const imgs = this.rw.current.getImgs()
         console.log('imgs',imgs)
+        const rhDetail = this.rhEditor.current.getDetail()
+        console.log('rhDetail',rhDetail)
     };
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -173,8 +177,8 @@ export default class AddUpdate extends Component {
                     {/* 获取子组件的方法 */}
                         <PicturesWall ref={this.rw} />
                     </Form.Item>
-                    <Form.Item label='商品详情:'>
-                        <Input placeholder="请输入商品详情" />
+                    <Form.Item label='商品详情:'labelCol= {{ span: 2 }} wrapperCol={{ span: 20 }}>
+                        <RichTextEditor ref={this.rhEditor} detail={product.detail} />
                     </Form.Item>
                     <Form.Item>
                         <Button type='primary' htmlType='submit'>提交</Button>
