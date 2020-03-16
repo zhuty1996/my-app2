@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {Card, List, Form, Input, Cascader, Upload, Button} from 'antd'
+import {Card, Form, Input, Cascader, Button} from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import LinkButton from '../../components/link-button/link-button'
+import PicturesWall from './pictures-wall'
 const { TextArea } = Input;
 
 
@@ -158,6 +159,9 @@ export default class AddUpdate extends Component {
                             placeholder="请选择商品分类" 
                             defaultValue= {categoryIds}
                             />
+                    </Form.Item>
+                    <Form.Item label='商品图片:'>
+                        <PicturesWall/>
                     </Form.Item>
                     <Form.Item label='商品详情:'>
                         <Input placeholder="请输入商品详情" />
