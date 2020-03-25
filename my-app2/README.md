@@ -104,3 +104,6 @@ npm install draft-js
 npm install draftjs-to-html  
 npm install html-to-draftjs --save
 https://www.jianshu.com/p/c6f3a4e5d324
+## 17.反面模式: 直接复制 prop 到 state  
+设置角色权限时的BUG：点击某行角色，设置权限后，其余角色的权限也变为和刚才一样  
+解决方法：https://react-1251415695.cos-website.ap-chengdu.myqcloud.com/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component

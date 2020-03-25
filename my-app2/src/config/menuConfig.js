@@ -12,7 +12,7 @@ const menuList = [
     },
     {
         title: '商品',  
-        key: '/product',   
+        key: '/cp',   
         icon: <MailOutlined/>,   
         children: [     //子菜单列表
             {

@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import { Card, Button, Table, Modal} from 'antd'
 
 import AddForm from './add-form'
+import AuthForm from './auth-form'
 
 //角色管理路由
 export default class Role extends Component {
+    constructor(props){
+        super(props)
+        this.myRef=React.createRef()
+    }
     state={
         roles: [
             {
@@ -12,25 +17,47 @@ export default class Role extends Component {
                 create_time: '111111',
                 auth_time: '111111',
                 auth_name: 'admin',
-                _id: '1'
+                _id: '1',
+                menus: [
+                    '/home',
+                    '/product',
+                    '/chars/line'
+                ]
             },
             {
                 name: '2',
                 create_time: '111111',
                 auth_time: '111111',
                 auth_name: 'admin',
-                _id: '2'
+                _id: '2',
+                menus: [
+                    "/home",
+                    "/product",
+                    "/category",
+                    "/chars/bar"
+                ]
             },
             {
                 name: '3',
                 create_time: '111111',
                 auth_time: '111111',
                 auth_name: 'admin',
-                _id: '3'
+                _id: '3',
+                menus: [
+                    "/home",
+                    "/category",
+                    "/product",
+                    "/user",
+                    "/role",
+                    "/chars/line",
+                    "/chars/bar",
+                    "/chars/pie"
+                ]
             }
         ],
         role: {}, //选中的行
-        isShowAdd: false //是否显示添加界面
+        isShowAdd: false, //是否显示添加界面
+        isShowAuth: false, //是否显示添加角色界面
     }
     //可以点击当前行任意地方即可变成选中状态
     selectRow = (record) => {
@@ -49,6 +76,20 @@ export default class Role extends Component {
         this.setState({
             isShowAdd: false,
         });
+    }
+    //更新角色
+    updateRole = () => {
+        this.setState({
+            isShowAuth: false,
+        })
+        //得到最新的menus,role是roles的引用变量
+        const menus = this.myRef.current.getMenus()
+        const {role} = this.state
+        role.menus = menus
+        role.auth_time = Date.now()
+        this.setState({
+            roles: [...this.state.roles]
+        })
     }
     render() {
         this.columns = [
@@ -69,11 +110,11 @@ export default class Role extends Component {
                 dataIndex: 'auth_name',
             }
         ]
-        const {roles,role,isShowAdd} = this.state
+        const {roles,role,isShowAdd,isShowAuth} = this.state
         const title = (
             <span>
                 <Button type='primary' onClick={ () => {this.setState({isShowAdd: true})}} style={{marginRight: 20}}>创建角色</Button>
-                <Button type='primary' disabled={!role._id}>设置角色权限</Button>
+                <Button type='primary' disabled={!role._id} onClick={ () => {this.setState({isShowAuth: true})}} >设置角色权限</Button>
             </span>
         )
         return (
@@ -98,6 +139,19 @@ export default class Role extends Component {
                       onCancel={this.handleCancel}
                     >
                       <AddForm />
+                </Modal>
+                <Modal
+                      title='角色权限'
+                      visible={isShowAuth}
+                      onOk={this.updateRole}
+                      onCancel={ () => {this.setState({ isShowAuth: false})}}
+                    >
+                    {/* 有 key 的非可控组件 */}
+                      <AuthForm 
+                        role={role} 
+                        ref={this.myRef} 
+                        key={role._id} 
+                      />
                 </Modal>
             </Card>
         )
